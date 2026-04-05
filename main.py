@@ -3,15 +3,7 @@ from urllib.request import urlopen
 from urllib.parse import urlencode
 import json
 
-app = FastAPI(
-    title="API FUNCIME - Compras.gov",
-    version="0.6.1",
-    servers=[
-        {"url": "https://api-funcime.onrender.com"}
-    ]
-)
-
-BASE_COMPRAS = "https://dadosabertos.compras.gov.br"
+app = FastAPI()
 
 @app.get("/")
 def raiz():
