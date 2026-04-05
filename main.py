@@ -3,7 +3,15 @@ from urllib.request import urlopen
 from urllib.parse import urlencode
 import json
 
-app = FastAPI()
+app = FastAPI(
+    title="API FUNCIME - Compras.gov",
+    version="0.6.1",
+    servers=[
+        {"url": "https://api-funcime.onrender.com"}
+    ]
+)
+
+BASE_COMPRAS = "https://dadosabertos.compras.gov.br"
 
 @app.get("/")
 def raiz():
@@ -16,7 +24,11 @@ def health():
 @app.get("/buscar-precos-comprasgov")
 def buscar_precos_comprasgov(codigoItemCatalogo: int = Query(...)):
     url_base = "https://dadosabertos.compras.gov.br/modulo-pesquisa-preco/1_consultarMaterial"
-    params = {"codigoItemCatalogo": codigoItemCatalogo, "pagina": 1, "tamanhoPagina": 10}
+    params = {
+        "codigoItemCatalogo": codigoItemCatalogo,
+        "pagina": 1,
+        "tamanhoPagina": 10
+    }
     url = url_base + "?" + urlencode(params)
 
     try:
